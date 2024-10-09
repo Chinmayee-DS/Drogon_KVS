@@ -27,6 +27,7 @@ class TestCtrl : public drogon::HttpController<TestCtrl>
     // ADD_METHOD_VIA_REGEX(TestCtrl::getItem, "/{key}", Get);
         ADD_METHOD_TO(TestCtrl::getItem,"/{key}",Get);
         ADD_METHOD_TO(TestCtrl::putItem, "/{key}", Post);
+        ADD_METHOD_TO(TestCtrl::delItem, "/{key}", Delete);
         // METHOD_ADD(TestCtrl::getItem, "/{k}", Get);
         // METHOD_ADD(TestCtrl::putItem, "/{k}", Post);
     METHOD_LIST_END
@@ -38,6 +39,11 @@ class TestCtrl : public drogon::HttpController<TestCtrl>
     void putItem(const HttpRequestPtr &req,
                    std::function<void (const HttpResponsePtr &)> &&callback,
                    std::string key);
+
+    void delItem(const HttpRequestPtr &req,
+                    std::function<void (const HttpResponsePtr &)> &&callback,
+                    std::string key);
+
 };
 }
 }

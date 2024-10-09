@@ -2,6 +2,7 @@
 #include <drogon/HttpAppFramework.h>
 #include <stdlib.h>
 #include <mutex>
+#include <ctime>
 
 int gw = 0;
 int pw = 0;
@@ -10,10 +11,6 @@ void api::v1::TestCtrl::getItem(const HttpRequestPtr &req,
                std::function<void (const HttpResponsePtr &)> &&callback,
                std::string key) const
 {
-    // Json::Value ret;
-    // ret["message"] = "Hello, World from get!";
-    // auto resp = HttpResponse::newHttpJsonResponse(ret);
-    // callback(resp);
     std::string value;
     {
         std::lock_guard<std::mutex> lock(this->mtx);
@@ -26,8 +23,11 @@ void api::v1::TestCtrl::getItem(const HttpRequestPtr &req,
 
     if(!value.empty())
     {
-        gw++;
-        std::cout << "gw " << gw << std::endl;
+        // gw++;
+        // std::cout << "gw " << gw << std::endl;
+        time_t timestamp;
+        time(&timestamp);
+        LOG_DEBUG << "GET " << key << " " << value << " " << ctime(&timestamp);
 
         auto resp = HttpResponse::newHttpResponse();
         resp->setStatusCode(k200OK);
@@ -36,8 +36,12 @@ void api::v1::TestCtrl::getItem(const HttpRequestPtr &req,
     }
     else
     {
+        time_t timestamp;
+        time(&timestamp);
+        LOG_DEBUG << "GET " << key << " value_not_found " << ctime(&timestamp);
+
         auto resp = HttpResponse::newHttpResponse();
-        resp->setStatusCode(k403Forbidden);
+        resp->setStatusCode(k400BadRequest);
         resp->setBody("Key not found");
         callback(resp);
     }
@@ -58,6 +62,10 @@ void api::v1::TestCtrl::putItem(const HttpRequestPtr &req,
     }
     else
     {
+        time_t timestamp;
+        time(&timestamp);
+        LOG_DEBUG << "PUT " << key << " json_value_not_found " << ctime(&timestamp);
+
         auto resp = HttpResponse::newHttpResponse();
         resp->setStatusCode(k400BadRequest);
         resp->setBody("Json unavailable");
@@ -69,16 +77,57 @@ void api::v1::TestCtrl::putItem(const HttpRequestPtr &req,
         kv_store[key] = val;
     }
 
-    pw++;
-    std::cout << "gw " << pw << std::endl;
+    // pw++;
+    // std::cout << "pw " << pw << std::endl;
+
+    time_t timestamp;
+    time(&timestamp);
+    LOG_DEBUG << "PUT " << key << " " << val << " " << ctime(&timestamp);
 
     auto resp = HttpResponse::newHttpResponse();
     resp->setStatusCode(k200OK);
     resp->setBody("Key stored successfully");
     callback(resp);
+}
 
-    // Json::Value ret;
-    // ret["message"] = "Hello, World!";
-    // auto resp = HttpResponse::newHttpJsonResponse(ret);
-    // callback(resp);
+void api::v1::TestCtrl::delItem(const HttpRequestPtr &req,
+                std::function<void (const HttpResponsePtr &)> &&callback,
+                std::string key)
+{
+    std::string value;
+    {
+        std::lock_guard<std::mutex> lock(this->mtx);
+        auto it = kv_store.find(key);
+        if(it != kv_store.end())
+        {
+            value = it->second;
+            kv_store.erase(key);
+        }
+    }
+
+    if(!value.empty())
+    {
+        // gw++;
+        // std::cout << "gw " << gw << std::endl;
+
+        time_t timestamp;
+        time(&timestamp);
+        LOG_DEBUG << "DEL " << key << " " << value << " " << ctime(&timestamp);
+
+        auto resp = HttpResponse::newHttpResponse();
+        resp->setStatusCode(k200OK);
+        resp->setBody(value);
+        callback(resp);
+    }
+    else
+    {
+        time_t timestamp;
+        time(&timestamp);
+        LOG_DEBUG << "DEL " << key << " key_value_pair_not_found " << ctime(&timestamp);
+
+        auto resp = HttpResponse::newHttpResponse();
+        resp->setStatusCode(k400BadRequest);
+        resp->setBody("Key not found");
+        callback(resp);
+    }
 }
