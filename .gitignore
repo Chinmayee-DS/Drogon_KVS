@@ -52,7 +52,7 @@
 .tmp_versions/
 modules.order
 Module.symvers
-Mkfile.old
+# Mkfile.old
 dkms.conf
 
 ### C++ ###
@@ -79,18 +79,18 @@ dkms.conf
 # Executables
 
 ### CMake ###
-CMakeLists.txt.user
-CMakeCache.txt
-CMakeFiles
-CMakeScripts
-Testing
-Makefile
-cmake_install.cmake
-install_manifest.txt
-compile_commands.json
-CTestTestfile.cmake
-_deps
-CMakeUserPresets.json
+# CMakeLists.txt.user
+# CMakeCache.txt
+# CMakeFiles
+# CMakeScripts
+# Testing
+# Makefile
+# cmake_install.cmake
+# install_manifest.txt
+# compile_commands.json
+# CTestTestfile.cmake
+# _deps
+# CMakeUserPresets.json
 
 ### CMake Patch ###
 # External projects
@@ -137,7 +137,7 @@ CMakeUserPresets.json
 # *.ipr
 
 # CMake
-cmake-build-*/
+# cmake-build-*/
 
 # Mongo Explorer plugin
 .idea/**/mongoSettings.xml
@@ -228,8 +228,8 @@ x86/
 bld/
 [Bb]in/
 [Oo]bj/
-[Ll]og/
-[Ll]ogs/
+# [Ll]og/
+# [Ll]ogs/
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -284,7 +284,7 @@ StyleCopReport.xml
 *.tmp
 *.tmp_proj
 *_wpftmp.csproj
-*.log
+# *.log
 *.vspscc
 *.vssscc
 .builds
