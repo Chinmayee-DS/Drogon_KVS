@@ -1,0 +1,6 @@
+/Users/tejasds/Chin_college/CC/HW1/drogon_kvs/threehwsc/build/CMakeFiles/threehwsc.dir
+/Users/tejasds/Chin_college/CC/HW1/drogon_kvs/threehwsc/build/CMakeFiles/edit_cache.dir
+/Users/tejasds/Chin_college/CC/HW1/drogon_kvs/threehwsc/build/CMakeFiles/rebuild_cache.dir
+/Users/tejasds/Chin_college/CC/HW1/drogon_kvs/threehwsc/build/test/CMakeFiles/threehwsc_test.dir
+/Users/tejasds/Chin_college/CC/HW1/drogon_kvs/threehwsc/build/test/CMakeFiles/edit_cache.dir
+/Users/tejasds/Chin_college/CC/HW1/drogon_kvs/threehwsc/build/test/CMakeFiles/rebuild_cache.dir
